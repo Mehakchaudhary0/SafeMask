@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="calculator-app">
+        <div class="screen">
+            <div id="result">0</div>
+        </div>
+
+        <div class="button-grid">
+            <button class="btn memory" onclick="memoryClear()">mc</button>
+            <button class="btn memory" onclick="memoryAdd()">m+</button>
+            <button class="btn memory" onclick="memorySubtract()">m-</button>
+            <button class="btn memory" onclick="memoryRecall()">mr</button>
+
+            <button class="btn pink" onclick="clearDisplay()">AC</button>
+            <button class="btn pink" onclick="backspace()">⌫</button>
+            <button class="btn pink" onclick="press('/')">+/-</button>
+            <button class="btn operator" onclick="press('/')">÷</button>
+
+            <button class="btn" onclick="press('7')">7</button>
+            <button class="btn" onclick="press('8')">8</button>
+            <button class="btn" onclick="press('9')">9</button>
+            <button class="btn operator" onclick="press('*')">×</button>
+
+            <button class="btn" onclick="press('4')">4</button>
+            <button class="btn" id="btn-5" onclick="press('5')">
+                5
+                <span id="sos-indicator"></span>
+            </button>
+            <button class="btn" onclick="press('6')">6</button>
+            <button class="btn operator" onclick="press('-')">−</button>
+
+            <button class="btn" onclick="press('1')">1</button>
+            <button class="btn" onclick="press('2')">2</button>
+            <button class="btn" onclick="press('3')">3</button>
+            <button class="btn operator" onclick="press('+')">+</button>
+
+            <button class="btn" onclick="press('%')">%</button>
+            <button class="btn" onclick="press('0')">0</button>
+            <button class="btn" onclick="press('.')">.</button>
+            <button class="btn equals" id="equals-btn" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <div id="admin-panel" class="hidden-panel">
+        <h3>Emergency Logs</h3>
+        <ul id="log-list"></ul>
+        <button onclick="closeAdmin()">Close</button>
+    </div>
+
+    <div id="incoming-call" class="call-overlay hidden">
+        <div class="caller-id">
+            <div class="avatar">M</div>
+            <h1>Mom</h1>
+            <p>Mobile 7310668998</p>
+        </div>
+        <div class="call-buttons">
+            <div class="decline-btn" onclick="endCall()">✖</div>
+            <div class="accept-btn">✔</div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

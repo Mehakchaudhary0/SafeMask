@@ -1,0 +1,314 @@
+:root {
+    --bg-black: #000000;
+    --btn-dark: #1c1c1c;
+    --accent-pink: #fa5252;
+}
+
+body {
+    background-color: var(--bg-black);
+    font-family: 'Inter', sans-serif;
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.calculator-app {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-size: 70px;
+    padding-bottom: 30px;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.btn {
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: none;
+    background: var(--btn-dark);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden; /* Ensures nothing spills out of the circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none; /* Prevents text selection while tapping */
+}
+.btn:focus {
+    outline: none;
+    border: none;
+}
+
+.btn:active { 
+    filter: brightness(1.5); 
+    background-color: #3a3a3a; /* Subtle lighten instead of a harsh box */
+    transform: scale(0.95);    /* Slight shrink effect for a "real button" feel */
+    background: #444 !important; /* Visual feedback when clicking */
+    
+}
+.btn.pink:active, .btn.operator:active, .btn.equals:active {
+    filter: brightness(1.3);
+}
+.btn.pink {
+     color: var(--accent-pink); 
+}
+.btn.operator { 
+    color: var(--accent-pink); font-size: 30px; 
+}
+.btn.equals { 
+    background: var(--accent-pink); 
+}
+.btn.memory { 
+    background: #222; /* Slightly visible dark circle */
+    color: #888;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#sos-indicator {
+    position: absolute;
+    bottom: 10px; left: 50%;
+    transform: translateX(-50%);
+    width: 4px; height: 4px;
+    background: #00ff00;
+    border-radius: 50%;
+    display: none;
+}
+
+/* Admin Panel */
+#admin-panel {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000; /* Pitch black for stealth */
+    z-index: 9999;
+    padding: 20px;
+    overflow-y: auto;
+}
+.admin-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    z-index: 2000;
+}
+
+.admin-content {
+    background: #222;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.hidden { 
+    display: none !important; 
+}
+
+/* Fake Call */
+.call-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(to bottom, #2c3e50, #000000);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 80px 0 100px 0;
+    color: white;
+    font-family: sans-serif;
+}
+
+.caller-info { text-align: center; }
+.caller-avatar { 
+    font-size: 80px; 
+    background: rgba(255,255,255,0.1); 
+    width: 120px; height: 120px; 
+    margin: 0 auto 20px; 
+    border-radius: 50%; 
+    display: flex; align-items: center; justify-content: center;
+}
+
+.call-actions {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.action-btn {
+    text-align: center;
+    cursor: pointer;
+}
+
+.action-btn span {
+    display: block;
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    line-height: 70px;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.decline span { background: #ff3b30; transform: rotate(135deg); }
+.accept span { 
+    background: #4cd964; 
+    animation: pulse 1.5s infinite; 
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(76, 217, 100, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(76, 217, 100, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(76, 217, 100, 0); }
+}
+.log-item {
+    background: #333;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border-left: 4px solid var(--accent-pink); /* Pink strip for importance */
+}
+
+.log-date {
+    font-weight: bold;
+    color: var(--accent-pink);
+    margin-right: 10px;
+}
+
+.log-time {
+    color: #bbb;
+}
+
+.log-loc {
+    margin-top: 8px;
+    font-family: monospace;
+    color: #00ff00; /* Green for coordinates */
+}
+.log-card {
+    background: #2a2a2a;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid #fa5252; /* Safety Red accent */
+}
+
+.log-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.log-body p {
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 10px;
+}
+
+.map-link {
+    display: inline-block;
+    color: #4cd964; /* Green link */
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #4cd964;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.map-link:active {
+    background: #4cd964;
+    color: black;
+}
+.table-view {
+    width: 95% !important;
+    max-width: 800px !important;
+    background: #121212 !important;
+    border: 1px solid #333;
+}
+
+.table-container {
+    overflow-x: auto; /* Allows scrolling on small phones */
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+thead th {
+    background: #252525;
+    color: #888;
+    text-align: left;
+    padding: 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #333;
+    font-size: 13px;
+    color: #eee;
+}
+
+tbody tr:hover {
+    background: #1a1a1a; /* Slight highlight on hover */
+}
+.map-link-table {
+    color: #4cd964;
+    text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.map-link-table:hover {
+    text-decoration: underline;
+}
+
+
+.table-link {
+    color: #4cd964;
+    text-decoration: none;
+    font-family: monospace;
+}
+
+.table-link:hover {
+    text-decoration: underline;
+}
+
+.close-btn {
+    margin-top: 20px;
+    background: #fa5252;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
